@@ -18,9 +18,9 @@ function transformUrl(url) {
   }
 */
   // 新增规则：排除 https://www.fengshows.com 前缀
-  /*if (/^https:\/\/www\.fengshows\.com/i.test(url)) {
+  if (/^https:\/\/www\.fengshows\.com/i.test(url)) {
     return null; // 表示该项需要被移除
-  }*/
+  }
 
   // 规则1：移除任何 URL 中的 "tv-web/" 前缀，并保留其后的路径（如 js/tv/iapp/... 或 live.html?url=...）
   const lower = url.toLowerCase();

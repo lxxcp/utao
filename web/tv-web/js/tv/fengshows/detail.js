@@ -1,5 +1,6 @@
 
 (function(){
+    __NUXT__.state.app.settings.fengshow_cdn_live="qctv.fengshows.cn"
     _tvFunc.fixedW("body");
     _tvFunc.check(function (){return $$(".fs-live-banner-cluster-schedule-station").length>0},function (){
         //let url = window.location.href;

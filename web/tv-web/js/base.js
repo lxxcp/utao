@@ -206,6 +206,16 @@ myPort.onMessage.addListener(function (m) {
         sessionStorage.setItem("_tvRunEnv",m.data);
     }
 });
+_data={
+hzChoose(id,name){
+        $$("#"+id).click();
+        //_layer.notifyLess("画质切换到 "+name);
+        //_apiX.toast("画质切换到 "+name);
+        localStorage.setItem("chooseHz",id);
+        localStorage.setItem("chooseHzName",name);
+    }
+};
+
 const  _messageCtrl={
     ctrl(message){
 

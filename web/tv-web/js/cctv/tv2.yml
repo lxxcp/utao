@@ -266,12 +266,6 @@ data:
   - tag: xianggang
     name: 香港
     vods:
-      - name: 凤凰卫视资讯台
-        url: https://www.fengshows.com/live?tag=0
-      - name: 凤凰卫视中文台
-        url: https://www.fengshows.com/live?tag=1
-      - name: 凤凰卫视香港台
-        url: https://www.fengshows.com/live?tag=2
       - name: 香港卫视
         url: http://www.hkstv.tv/index/live/channel/.html
   - tag: sdtv

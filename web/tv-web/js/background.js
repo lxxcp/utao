@@ -66,7 +66,7 @@ const  _listener={
                 const orgUrl = details.url || "";
                 if(orgUrl.startsWith("https://tlive.fengshows.com/live/") || orgUrl.startsWith("https://hkmolive.fengshows.com/live/")){
                     const idx = orgUrl.indexOf("/live");
-                    const realUrl = "http://qctv.fengshows.cn" + (idx !== -1 ? orgUrl.substring(idx) : "/live");
+                    const realUrl = "https://qctv.fengshows.cn" + (idx !== -1 ? orgUrl.substring(idx) : "/live");
                     console.log("fengshows redirect:", orgUrl, "->", realUrl);
                     return { redirectUrl: realUrl };
                 }
