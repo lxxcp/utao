@@ -29,8 +29,8 @@ android {
         minSdk 16
         //noinspection ExpiredTargetSdkVersiotv
         targetSdk 28
-        versionCode 46
-        versionName "2025年10月11日2"
+        versionCode 47
+        versionName "2025年10月14日"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi","armeabi-v7a","arm64-v8a","x86"//"armeabi-v7a","x86" arm64-v8a ""armeabi-v7a"// arm64-v8a、armeabi-v7a、x86_64、x86 中的一个或多个
