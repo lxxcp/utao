@@ -21,6 +21,9 @@ public class MainActivity extends BaseWebViewActivity {
     private long mClickBackTime = 0;
     private DialogExitMainBinding exitDialogBinding;
     private boolean isExitDialogShowing = false;
+    private boolean x5Ok(){
+        return "ok".equals(ValueUtil.getString(this,"x5","0"));
+    }
     public boolean dispatchTouchEvent(MotionEvent event) {
         if(event.getAction() == KeyEvent.ACTION_DOWN){
             float x= event.getX();
@@ -166,6 +169,23 @@ public class MainActivity extends BaseWebViewActivity {
             android.graphics.Bitmap bmp = android.graphics.BitmapFactory.decodeStream(getAssets().open("tv-web/img/myzsm.jpg"));
             exitDialogBinding.qrDonate.setImageBitmap(bmp);
         } catch (Throwable ignore) {}
+
+        // 默认焦点设置到“取消”按钮
+        try {
+            exitDialogBinding.btnCancel.setFocusable(true);
+            exitDialogBinding.btnCancel.setFocusableInTouchMode(true);
+            exitDialogBinding.btnCancel.post(() -> exitDialogBinding.btnCancel.requestFocus());
+        } catch (Throwable ignore) {}
+
+        // 根据X5开关状态：已开启则隐藏按钮；未开启则显示“开启X5内核(会关闭应用)”
+        try {
+            if (x5Ok()) {
+                exitDialogBinding.btnOpenX5.setVisibility(View.GONE);
+            } else {
+                exitDialogBinding.btnOpenX5.setVisibility(View.VISIBLE);
+                exitDialogBinding.btnOpenX5.setText("开启X5内核(会关闭应用)");
+            }
+        } catch (Throwable ignore) {}
     }
     
     private void hideExitDialog() {
@@ -207,6 +227,14 @@ public class MainActivity extends BaseWebViewActivity {
                 ToastUtils.show(this, "已设置启动首页为：视频点播", Toast.LENGTH_SHORT);
                 exitDialogBinding.btnStartToggle.setText("启动即电视直播");
             }
+        });
+
+        // 开启X5按钮（无关闭功能）
+        exitDialogBinding.btnOpenX5.setOnClickListener(v -> {
+            ValueUtil.putString(getApplicationContext(), "openX5", "1");
+            ToastUtils.show(this, "已开启X5，将重启应用", Toast.LENGTH_SHORT);
+            finishAffinity();
+            System.exit(0);
         });
     }
     

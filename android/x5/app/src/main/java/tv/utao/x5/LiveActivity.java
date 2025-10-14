@@ -71,6 +71,10 @@ public class LiveActivity extends BaseActivity {
     
     // 添加收藏服务
     private FavoriteService favoriteService;
+    private boolean x5Ok(){
+        return "ok".equals(ValueUtil.getString(this,"x5","0"));
+    }
+
 
 
 
@@ -275,6 +279,16 @@ public class LiveActivity extends BaseActivity {
             exitDialogBinding.btnStartToggle.setText("启动即视频点播");
         }
         
+        // 根据当前X5开关状态：已开启则隐藏按钮；未开启则显示“开启X5内核(会关闭应用)”
+        try {
+            if (x5Ok()) {
+                exitDialogBinding.btnOpenX5.setVisibility(View.GONE);
+            } else {
+                exitDialogBinding.btnOpenX5.setVisibility(View.VISIBLE);
+                exitDialogBinding.btnOpenX5.setText("开启X5内核(会关闭应用)");
+            }
+        } catch (Throwable ignore) {}
+
         
         // 默认焦点回到收藏按钮，避免按返回后焦点丢失
         exitDialogBinding.btnFavorite.post(() -> exitDialogBinding.btnFavorite.requestFocus());
@@ -347,6 +361,14 @@ public class LiveActivity extends BaseActivity {
                 ToastUtils.show(this, "已设置启动首页为：视频点播", Toast.LENGTH_SHORT);
                 exitDialogBinding.btnStartToggle.setText("启动即电视直播");
             }
+        });
+
+        // 开启X5按钮（无关闭功能）
+        exitDialogBinding.btnOpenX5.setOnClickListener(v -> {
+            ValueUtil.putString(getApplicationContext(), "openX5", "1");
+            ToastUtils.show(this, "已开启X5，将重启应用", Toast.LENGTH_SHORT);
+            finishAffinity();
+            System.exit(0);
         });
     }
 

@@ -83,7 +83,23 @@
                 android:nextFocusDown="@id/btnFavorite"
                 android:nextFocusUp="@id/btnCancel" />
 
-            <!-- 分割线 -->
+			<!-- 开启/关闭X5内核（会关闭应用） -->
+			<Button
+				android:id="@+id/btnOpenX5"
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				android:text="开启X5内核(会关闭应用)"
+				android:textColor="#FFFFFF"
+				android:textSize="16sp"
+				android:background="@drawable/menu_button_background"
+				android:focusable="true"
+				android:focusableInTouchMode="true"
+				android:clickable="true"
+				android:layout_marginBottom="12dp"
+				android:nextFocusUp="@id/btnStartToggle"
+				android:nextFocusDown="@id/hzListInExit" />
+
+			<!-- 分割线 -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
