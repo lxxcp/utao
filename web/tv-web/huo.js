@@ -15,14 +15,22 @@ function transformUrl(url) {
   // 规则2：排除 https://www.gdtv.cn 前缀
  /* if (/^https:\/\/www\.gdtv\.cn/i.test(url)) {
     return null; // 表示该项需要被移除
-  }
-*/
+  }*/
+
   // 新增规则：排除 https://www.fengshows.com 前缀
   if (/^https:\/\/www\.fengshows\.com/i.test(url)) {
     return null; // 表示该项需要被移除
   }
 
-  // 规则1：移除任何 URL 中的 "tv-web/" 前缀，并保留其后的路径（如 js/tv/iapp/... 或 live.html?url=...）
+  // 新规则：对于包含 live.html?url= 的链接，直接提取 url= 后面的值
+  if (url.includes('live.html?url=')&&url.includes(".m3u8")) {
+    const match = url.match(/live\.html\?url=(.+)$/i);
+    if (match && match[1]) {
+      return decodeURIComponent(match[1]);
+    }
+  }
+
+  // 原规则1（已注释，保留以备还原）：移除任何 URL 中的 "tv-web/" 前缀，并保留其后的路径（如 js/tv/iapp/... 或 live.html?url=...）
   const lower = url.toLowerCase();
   const idx = lower.indexOf('tv-web/');
   if (idx !== -1) {
