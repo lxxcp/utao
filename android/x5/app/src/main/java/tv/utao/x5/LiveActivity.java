@@ -278,6 +278,12 @@ public class LiveActivity extends BaseActivity {
         
         // 默认焦点回到收藏按钮，避免按返回后焦点丢失
         exitDialogBinding.btnFavorite.post(() -> exitDialogBinding.btnFavorite.requestFocus());
+
+        // 设置左侧二维码图片
+        try {
+            android.graphics.Bitmap bmp = android.graphics.BitmapFactory.decodeStream(getAssets().open("tv-web/img/myzsm.jpg"));
+            exitDialogBinding.qrDonate.setImageBitmap(bmp);
+        } catch (Throwable ignore) {}
     }
     
     /**

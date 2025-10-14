@@ -161,6 +161,11 @@ public class MainActivity extends BaseWebViewActivity {
         // Main 返回菜单不显示收藏与画质
         // 此布局本身不包含这两个控件，无需隐藏
         
+        // 设置左侧二维码图片
+        try {
+            android.graphics.Bitmap bmp = android.graphics.BitmapFactory.decodeStream(getAssets().open("tv-web/img/myzsm.jpg"));
+            exitDialogBinding.qrDonate.setImageBitmap(bmp);
+        } catch (Throwable ignore) {}
     }
     
     private void hideExitDialog() {
