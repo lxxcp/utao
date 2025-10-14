@@ -46,7 +46,7 @@ data:
         url: https://www.yangshipin.cn/tv/home?pid=600001859
       - name: CCTV2 财经
         url: https://www.yangshipin.cn/tv/home?pid=600001800
-      - name: CCTV3 财经
+      - name: CCTV3 综艺
         url: https://www.yangshipin.cn/tv/home?pid=600001801
       - name: CCTV4 中文国际
         url: https://www.yangshipin.cn/tv/home?pid=600001814
@@ -492,16 +492,14 @@ data:
         url: https://iapp.wfkwrm.com/tv-web/js/tv/iapp/live.html?url=https://iapp.wfkwrm.com/share/dHZsLTEyNy0xNw.html
       - name: 临朐新闻综合
         url: https://iapp.yunshanglinqu.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.yunshanglinqu.cn/share/dHZsLTIwNS0zOQ.html
-      - name: 青州综合##
+      - name: 青州综合
         url: https://iapp.qingzhounews.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.qingzhounews.cn/share/dHZsLTEyNS0y.html
-      - name: 青州文化旅游##
+      - name: 青州文化旅游
         url: https://iapp.qingzhounews.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.qingzhounews.cn/share/dHZsLTEyNS0z.html
       - name: 潍城TV
         url: https://iapp.wcrmawckhd.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.wcrmawckhd.cn/share/dHZsLTE1LTM.html
       - name: 诸城新闻综合
         url: https://iapp.52zhucheng.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.52zhucheng.cn/share/dHZsLTExNS0yMw.html
-      - name: 诸城生活娱乐##
-        url: https://iapp.52zhucheng.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.52zhucheng.cn/share/dHZsLTExNS0yNQ.html
       - name: 寿光综合
         url: https://iapp.sgrmt.com/tv-web/js/tv/iapp/live.html?url=https://iapp.sgrmt.com/share/dHZsLTI3OS0x.html
       - name: 寿光蔬菜
@@ -510,8 +508,6 @@ data:
         url: https://iapp.changdaohao.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.changdaohao.cn/share/dHZsLTE3NS0x.html
       - name: 福山综合
         url: https://iapp.fuzaifushan.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.fuzaifushan.cn/share/dHZsLTE4OS00.html
-      - name: 福山生活##
-        url: https://iapp.fuzaifushan.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.fuzaifushan.cn/share/dHZsLTE4OS05.html
       - name: 海阳综合
         url: https://iapp.hyzc.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.hyzc.cn/share/dHZsLTI1NS0x.html
       - name: 龙口综合

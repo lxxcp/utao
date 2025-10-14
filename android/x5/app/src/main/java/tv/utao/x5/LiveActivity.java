@@ -625,6 +625,20 @@ public class LiveActivity extends BaseActivity {
         int count = currentProvince.getVods() == null ? 0 : currentProvince.getVods().size();
         binding.provinceName.setText(currentProvince.getName() + "(" + count + ")");
         setupChannelList(currentProvince.getVods());
+        // 显示后，将焦点与选中项指向当前频道
+        try {
+            if (currentLive != null && currentLive.getTagIndex() == currentProvinceIndex) {
+                int idx = Math.max(0, currentLive.getDetailIndex());
+                if (binding.channelList.getAdapter() != null && binding.channelList.getCount() > 0) {
+                    if (idx >= binding.channelList.getCount()) { idx = binding.channelList.getCount() - 1; }
+                    final int finalIdx = idx;
+                    binding.channelList.post(() -> {
+                        binding.channelList.setSelection(finalIdx);
+                        binding.channelList.requestFocus();
+                    });
+                }
+            }
+        } catch (Throwable ignore) {}
     }
 
     private void setupChannelList(List<Vod> channels) {
@@ -701,13 +715,24 @@ public class LiveActivity extends BaseActivity {
     private void showMenu() {
         binding.menuContainer.setVisibility(View.VISIBLE);
         isMenuShow = true;
+        // 将省份定位到当前播放的省份
+        try {
+            if (currentLive != null) {
+                currentProvinceIndex = currentLive.getTagIndex();
+            }
+        } catch (Throwable ignore) {}
         showCurrentProvince();
         setupProvinceButtons();
-        // 默认选中第一个频道
-        if (binding.channelList.getAdapter() != null && binding.channelList.getCount() > 0) {
-            binding.channelList.setSelection(0);
-            binding.channelList.requestFocus();
-        }
+        // 将列表焦点与选中项定位到当前频道
+        try {
+            int sel = 0;
+            if (currentLive != null) { sel = Math.max(0, currentLive.getDetailIndex()); }
+            if (binding.channelList.getAdapter() != null && binding.channelList.getCount() > 0) {
+                if (sel >= binding.channelList.getCount()) { sel = binding.channelList.getCount() - 1; }
+                binding.channelList.setSelection(sel);
+                binding.channelList.requestFocus();
+            }
+        } catch (Throwable ignore) {}
         
         // 点击空白处关闭菜单
         binding.menuContainer.setOnClickListener(v -> hideMenu());
