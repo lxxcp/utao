@@ -289,6 +289,49 @@ public class LiveActivity extends BaseActivity {
             }
         } catch (Throwable ignore) {}
 
+        // 自启动按钮文案
+        try {
+            String autoStart = ValueUtil.getString(this, "autoStart", "0");
+            if ("1".equals(autoStart)) {
+                exitDialogBinding.btnAutoStart.setText("关闭自启动");
+            } else {
+                exitDialogBinding.btnAutoStart.setText("开启自启动");
+            }
+        } catch (Throwable ignore) {}
+
+        // 焦点链：启动 -> (X5 可见则到 X5) -> 自启动 -> 画质列表 -> 收藏
+        try {
+            boolean x5Visible = exitDialogBinding.btnOpenX5.getVisibility() == View.VISIBLE;
+            if (x5Visible) {
+                exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnOpenX5.getId());
+                exitDialogBinding.btnOpenX5.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
+                exitDialogBinding.btnOpenX5.setNextFocusDownId(exitDialogBinding.btnAutoStart.getId());
+                exitDialogBinding.btnAutoStart.setNextFocusUpId(exitDialogBinding.btnOpenX5.getId());
+            } else {
+                exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnAutoStart.getId());
+                exitDialogBinding.btnAutoStart.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
+            }
+            // 自启动向下到画质列表；收藏的上焦点在 setupHzListInExit 中再绑定第一个项
+            exitDialogBinding.btnAutoStart.setNextFocusDownId(exitDialogBinding.hzListInExit.getId());
+            // 兜底：如果画质列表为空，则自启动向下直接到收藏
+            exitDialogBinding.hzListInExit.post(() -> {
+                try {
+                    androidx.recyclerview.widget.RecyclerView.Adapter<?> adapter = exitDialogBinding.hzListInExit.getAdapter();
+                    int count = adapter == null ? 0 : adapter.getItemCount();
+                    if (count == 0) {
+                        exitDialogBinding.btnAutoStart.setNextFocusDownId(exitDialogBinding.btnFavorite.getId());
+                        exitDialogBinding.btnFavorite.setNextFocusUpId(exitDialogBinding.btnAutoStart.getId());
+                    }
+                } catch (Throwable ignore2) {}
+            });
+        } catch (Throwable ignore) {}
+
+        // 设置启动按钮向下焦点到 X5，再到自启动
+        try {
+            exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnOpenX5.getId());
+            exitDialogBinding.btnOpenX5.setNextFocusDownId(exitDialogBinding.btnAutoStart.getId());
+        } catch (Throwable ignore) {}
+
         
         // 默认焦点回到收藏按钮，避免按返回后焦点丢失
         exitDialogBinding.btnFavorite.post(() -> exitDialogBinding.btnFavorite.requestFocus());
@@ -370,7 +413,25 @@ public class LiveActivity extends BaseActivity {
             finishAffinity();
             System.exit(0);
         });
+
+        // 开启自启动按钮（切换开关，也可进入设置页）
+        try {
+            exitDialogBinding.btnAutoStart.setOnClickListener(v -> {
+                String current = ValueUtil.getString(this, "autoStart", "0");
+                if ("1".equals(current)) {
+                    ValueUtil.putString(this, "autoStart", "0");
+                    exitDialogBinding.btnAutoStart.setText("开启自启动");
+                    ToastUtils.show(this, "已关闭自启动", Toast.LENGTH_SHORT);
+                } else {
+                    ValueUtil.putString(this, "autoStart", "1");
+                    exitDialogBinding.btnAutoStart.setText("关闭自启动");
+                    ToastUtils.show(this, "已开启自启动", Toast.LENGTH_SHORT);
+                }
+            });
+        } catch (Throwable ignore) {}
     }
+
+    // 已移除设置页跳转，保留占位以避免方法引用丢失
 
     protected static String  videoQualityData=null;
     private void setupHzListInExit(){
@@ -389,7 +450,7 @@ public class LiveActivity extends BaseActivity {
         hzAdapter.setItemPresenter(new HzLiveBindPresenter());
         exitDialogBinding.hzListInExit.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,false));
         exitDialogBinding.hzListInExit.setAdapter(hzAdapter);
-        // 所有画质项的上下焦点跳转绑定（上->启动按钮，下->收藏按钮）
+        // 所有画质项的上下焦点跳转绑定（上->自启动按钮，下->收藏按钮）
         exitDialogBinding.hzListInExit.addOnChildAttachStateChangeListener(new androidx.recyclerview.widget.RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -398,7 +459,7 @@ public class LiveActivity extends BaseActivity {
                     if (btn.getId() == View.NO_ID) {
                         btn.setId(View.generateViewId());
                     }
-                    btn.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
+                    btn.setNextFocusUpId(exitDialogBinding.btnAutoStart.getId());
                     btn.setNextFocusDownId(exitDialogBinding.btnFavorite.getId());
                 }
             }
@@ -415,10 +476,10 @@ public class LiveActivity extends BaseActivity {
                     if (first.getId() == View.NO_ID) {
                         first.setId(View.generateViewId());
                     }
-                    // 上下焦点：启动按钮 -> 画质第一项 -> 收藏按钮
-                    exitDialogBinding.btnStartToggle.setNextFocusDownId(first.getId());
+                    // 上下焦点：自启动按钮 -> 画质第一项 -> 收藏按钮
+                    exitDialogBinding.btnAutoStart.setNextFocusDownId(first.getId());
                     exitDialogBinding.btnFavorite.setNextFocusUpId(first.getId());
-                    first.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
+                    first.setNextFocusUpId(exitDialogBinding.btnAutoStart.getId());
                     first.setNextFocusDownId(exitDialogBinding.btnFavorite.getId());
                     // 不改变默认焦点
                 }

@@ -186,6 +186,32 @@ public class MainActivity extends BaseWebViewActivity {
                 exitDialogBinding.btnOpenX5.setText("开启X5内核(会关闭应用)");
             }
         } catch (Throwable ignore) {}
+
+        // 自启动按钮文案
+        try {
+            String autoStart = ValueUtil.getString(this, "autoStart", "0");
+            if ("1".equals(autoStart)) {
+                exitDialogBinding.btnAutoStart.setText("关闭自启动");
+            } else {
+                exitDialogBinding.btnAutoStart.setText("开启自启动");
+            }
+        } catch (Throwable ignore) {}
+
+        // 焦点链：启动 -> (X5 可见则到 X5) -> 自启动 -> 取消
+        try {
+            boolean x5Visible = exitDialogBinding.btnOpenX5.getVisibility() == View.VISIBLE;
+            if (x5Visible) {
+                exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnOpenX5.getId());
+                exitDialogBinding.btnOpenX5.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
+                exitDialogBinding.btnOpenX5.setNextFocusDownId(exitDialogBinding.btnAutoStart.getId());
+                exitDialogBinding.btnAutoStart.setNextFocusUpId(exitDialogBinding.btnOpenX5.getId());
+            } else {
+                exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnAutoStart.getId());
+                exitDialogBinding.btnAutoStart.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
+            }
+            exitDialogBinding.btnAutoStart.setNextFocusDownId(exitDialogBinding.btnCancel.getId());
+            exitDialogBinding.btnCancel.setNextFocusUpId(exitDialogBinding.btnAutoStart.getId());
+        } catch (Throwable ignore) {}
     }
     
     private void hideExitDialog() {
@@ -236,6 +262,24 @@ public class MainActivity extends BaseWebViewActivity {
             finishAffinity();
             System.exit(0);
         });
+
+        // 开启自启动按钮（切换开关，也可进入设置页）
+        try {
+            exitDialogBinding.btnAutoStart.setOnClickListener(v -> {
+                String current = ValueUtil.getString(this, "autoStart", "0");
+                if ("1".equals(current)) {
+                    ValueUtil.putString(this, "autoStart", "0");
+                    exitDialogBinding.btnAutoStart.setText("开启自启动");
+                    ToastUtils.show(this, "已关闭自启动", Toast.LENGTH_SHORT);
+                } else {
+                    ValueUtil.putString(this, "autoStart", "1");
+                    exitDialogBinding.btnAutoStart.setText("关闭自启动");
+                    ToastUtils.show(this, "已开启自启动", Toast.LENGTH_SHORT);
+                }
+            });
+        } catch (Throwable ignore) {}
     }
+
+    // 已移除设置页跳转，保留占位以避免方法引用丢失
     
 }
