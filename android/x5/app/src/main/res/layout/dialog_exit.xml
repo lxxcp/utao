@@ -97,7 +97,7 @@
 				android:clickable="true"
 				android:layout_marginBottom="10dp"
 				android:nextFocusUp="@id/btnStartToggle"
-				android:nextFocusDown="@id/btnAutoStart" />
+				android:nextFocusDown="@id/hzListInExit" />
 
 			<!-- 开启自启动设置 -->
 			<Button
@@ -113,7 +113,8 @@
 				android:clickable="true"
 				android:layout_marginBottom="10dp"
 				android:nextFocusUp="@id/btnOpenX5"
-				android:nextFocusDown="@id/hzListInExit" />
+				android:nextFocusDown="@id/hzListInExit"
+				android:visibility="gone" />
 
 			<!-- 分割线 -->
             <View
@@ -139,7 +140,7 @@
                 android:gravity="center">
 
                 <!-- 收藏按钮 -->
-                <Button
+				<Button
                     android:id="@+id/btnFavorite"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -151,7 +152,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:clickable="true"
-                    android:nextFocusUp="@id/btnStartToggle"
+					android:nextFocusUp="@id/btnStartToggle"
                     android:nextFocusDown="@id/btnCancel"
                     android:defaultFocusHighlightEnabled="true" />
 

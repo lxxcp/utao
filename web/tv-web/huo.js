@@ -23,12 +23,12 @@ function transformUrl(url) {
   }
 
   // 新规则：对于包含 live.html?url= 的链接，直接提取 url= 后面的值
-  if (url.includes('live.html?url=')&&url.includes(".m3u8")) {
+ /* if (url.includes('live.html?url=')&&url.includes(".m3u8")) {
     const match = url.match(/live\.html\?url=(.+)$/i);
     if (match && match[1]) {
       return decodeURIComponent(match[1]);
     }
-  }
+  }*/
 
   // 原规则1（已注释，保留以备还原）：移除任何 URL 中的 "tv-web/" 前缀，并保留其后的路径（如 js/tv/iapp/... 或 live.html?url=...）
   const lower = url.toLowerCase();

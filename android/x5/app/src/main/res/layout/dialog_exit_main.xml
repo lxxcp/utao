@@ -93,7 +93,7 @@
                 android:clickable="true"
                 android:layout_marginBottom="12dp"
                 android:nextFocusUp="@id/btnStartToggle"
-                android:nextFocusDown="@id/btnAutoStart" />
+                android:nextFocusDown="@id/btnCancel" />
 
             <Button
                 android:id="@+id/btnAutoStart"
@@ -108,7 +108,8 @@
                 android:clickable="true"
                 android:layout_marginBottom="12dp"
                 android:nextFocusUp="@id/btnOpenX5"
-                android:nextFocusDown="@id/btnCancel" />
+                android:nextFocusDown="@id/btnCancel"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnCancel"

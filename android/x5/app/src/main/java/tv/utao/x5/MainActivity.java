@@ -187,7 +187,7 @@ public class MainActivity extends BaseWebViewActivity {
             }
         } catch (Throwable ignore) {}
 
-        // 自启动按钮文案
+        // 自启动按钮文案（保留逻辑，但按钮已隐藏）
         try {
             String autoStart = ValueUtil.getString(this, "autoStart", "0");
             if ("1".equals(autoStart)) {
@@ -195,22 +195,20 @@ public class MainActivity extends BaseWebViewActivity {
             } else {
                 exitDialogBinding.btnAutoStart.setText("开启自启动");
             }
+            exitDialogBinding.btnAutoStart.setVisibility(View.GONE);
         } catch (Throwable ignore) {}
 
-        // 焦点链：启动 -> (X5 可见则到 X5) -> 自启动 -> 取消
+        // 焦点链调整：启动 -> (X5 可见则到 X5) -> 取消（自启动按钮隐藏）
         try {
             boolean x5Visible = exitDialogBinding.btnOpenX5.getVisibility() == View.VISIBLE;
             if (x5Visible) {
                 exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnOpenX5.getId());
                 exitDialogBinding.btnOpenX5.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
-                exitDialogBinding.btnOpenX5.setNextFocusDownId(exitDialogBinding.btnAutoStart.getId());
-                exitDialogBinding.btnAutoStart.setNextFocusUpId(exitDialogBinding.btnOpenX5.getId());
+                exitDialogBinding.btnOpenX5.setNextFocusDownId(exitDialogBinding.btnCancel.getId());
             } else {
-                exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnAutoStart.getId());
-                exitDialogBinding.btnAutoStart.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
+                exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnCancel.getId());
             }
-            exitDialogBinding.btnAutoStart.setNextFocusDownId(exitDialogBinding.btnCancel.getId());
-            exitDialogBinding.btnCancel.setNextFocusUpId(exitDialogBinding.btnAutoStart.getId());
+            exitDialogBinding.btnCancel.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
         } catch (Throwable ignore) {}
     }
     

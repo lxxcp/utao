@@ -1332,10 +1332,10 @@ data:
 #        url: https://live.lzgd.com.cn/tv/1902?uin=3370
 #      - name: 柳州科教
 #        url: https://live.lzgd.com.cn/tv/1808?uin=3370
-      - name: 防城港新闻综合
-        url: https://cms.fcgtvb.com/lives/2
-      - name: 防城港公共
-        url: https://cms.fcgtvb.com/lives/3
+#      - name: 防城港新闻综合#需要登录
+#        url: https://cms.fcgtvb.com/lives/2
+#      - name: 防城港公共
+#        url: https://cms.fcgtvb.com/lives/3
 
   #吉林
   - tag: jltv
