@@ -52,7 +52,7 @@ const  _ctrlx={
             let viewBox= $$(".qrCode_qrBox__cGzov").find("svg").attr("viewBox");
             console.log("viewBox "+viewBox);
            // $$(".qrCode_qrBox__cGzov").find("svg").html("");
-            _tvFunc.check(function(){return $$(".qrCode_qrBox__cGzov").find("svg").attr("viewBox").includes("37");},function(){
+            _tvFunc.check(function(){return $$(".qrCode_qrBox__cGzov").find("svg").attr("viewBox").includes("41");},function(){
                 let html= $$(".qrCode_qrBox__cGzov").find("svg").html();
                 let menuId= _layer.open(_login.loginHtml(html), 99999, null, "tv-index", "tv-bg-yellow");
                 TvFocus.init();
@@ -78,7 +78,7 @@ const  _ctrlx={
             </div>
             <div>
             <div  id="_tv_login" class="tv-tab tv-tab-flex" style="justify-content:center;">
-                <svg id="tv-qrCode"  height="200" viewBox="0 0 37 37" width="200" xmlns="http://www.w3.org/2000/svg">
+                <svg id="tv-qrCode"  height="200" viewBox="0 0 41 41" width="200" xmlns="http://www.w3.org/2000/svg">
                   ${loginHtml}
                 </svg>         
             <div>

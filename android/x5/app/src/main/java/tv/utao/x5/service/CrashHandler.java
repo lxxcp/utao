@@ -249,9 +249,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
             return;
         }
 
-        // 按时间顺序上传（旧的先）
-        java.util.Arrays.sort(files, java.util.Comparator.comparingLong(File::lastModified));
-
         new Thread(() -> {
             for (File f : files) {
                 String errLog = null;
