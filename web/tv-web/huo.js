@@ -13,9 +13,9 @@ const outPath = path.join(__dirname, 'js', 'cctv', 'tv2.yml');
 
 function transformUrl(url) {
   // 规则2：排除 https://www.gdtv.cn 前缀
- /* if (/^https:\/\/www\.gdtv\.cn/i.test(url)) {
+  if (/^https:\/\/www\.huya\.com/i.test(url)) {
     return null; // 表示该项需要被移除
-  }*/
+  }
 
   // 新增规则：排除 https://www.fengshows.com 前缀
   if (/^https:\/\/www\.fengshows\.com/i.test(url)) {
