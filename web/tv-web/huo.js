@@ -48,7 +48,10 @@ function main() {
   let transformedCount = 0;
 
   if (doc && Array.isArray(doc.data)) {
-    doc.data = doc.data.map(group => {
+    const newData = [];
+    let emptyChannelCount = 0;
+    
+    for (const group of doc.data) {
       if (Array.isArray(group.vods)) {
         const newVods = [];
         for (const vod of group.vods) {
@@ -66,10 +69,22 @@ function main() {
           }
           newVods.push({ ...vod, url: newUrl });
         }
-        group.vods = newVods;
+        
+        // 如果过滤后该频道还有内容，则保留；否则删除整个频道
+        if (newVods.length > 0) {
+          group.vods = newVods;
+          newData.push(group);
+        } else {
+          emptyChannelCount++;
+          console.log(`删除空频道: ${group.name || group.tag}`);
+        }
+      } else {
+        newData.push(group);
       }
-      return group;
-    });
+    }
+    
+    doc.data = newData;
+    console.log(`共删除 ${emptyChannelCount} 个空频道`);
   }
 
   const outYaml = yaml.dump(doc, { lineWidth: -1 });

@@ -1686,6 +1686,3 @@ data:
         url: https://www.sxxynews.com.cn/tvradio/xyzhpd.html
       - name: 咸阳公共
         url: https://www.sxxynews.com.cn/tvradio/xyggpd.html
-  - tag: hytv
-    name: 虎牙直播
-    vods: []
