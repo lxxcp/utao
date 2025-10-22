@@ -179,7 +179,13 @@ public class LiveActivity extends BaseActivity {
         // 优先处理退出对话框
         if(isExitDialogShowing){
             if(keyCode==KeyEvent.KEYCODE_BACK){
-                finish();
+                // 若当前设置为“启动即电视直播”，第二次返回跳转到 Main 页面
+                String currentStartPage = ValueUtil.getString(this, "startPage", "main");
+                if ("main".equals(currentStartPage)) {
+                    toHome();
+                } else {
+                    finish();
+                }
                 return true;
             }
             // 退出对话框显示时，让系统处理上下键焦点切换
@@ -189,7 +195,7 @@ public class LiveActivity extends BaseActivity {
             // 其他按键也交给系统处理（如确认键）
             return super.dispatchKeyEvent(event);
         }
-        
+
         boolean isMenuShow=isMenuShow();
         if(isMenuShow){
             if(keyCode==KeyEvent.KEYCODE_BACK||keyCode==KeyEvent.KEYCODE_MENU||keyCode==KeyEvent.KEYCODE_TAB){
@@ -236,12 +242,18 @@ public class LiveActivity extends BaseActivity {
         }
         return super.dispatchKeyEvent(event);
     }
-    
+
     private void handleBackPress(){
         // 不再显示悬浮画质层，直接处理退出
         // 如果退出对话框已显示，再次按返回键则退出
         if (isExitDialogShowing) {
-            finish();
+            // 若当前设置为“启动即电视直播”，第二次返回跳转到 Main 页面
+            String currentStartPage = ValueUtil.getString(this, "startPage", "main");
+            if ("live".equals(currentStartPage)) {
+                toHome();
+            } else {
+                finish();
+            }
             return;
         }
         // 显示退出对话框
@@ -316,12 +328,19 @@ public class LiveActivity extends BaseActivity {
                     androidx.recyclerview.widget.RecyclerView.Adapter<?> adapter = exitDialogBinding.hzListInExit.getAdapter();
                     int count = adapter == null ? 0 : adapter.getItemCount();
                     if (count == 0) {
-                        if (exitDialogBinding.btnOpenX5.getVisibility() == View.VISIBLE) {
+                        boolean x5VisibleInner = exitDialogBinding.btnOpenX5.getVisibility() == View.VISIBLE;
+                        if (x5VisibleInner) {
+                            // 空列表时：启动 -> 开启X5 -> 收藏；收藏上 -> 开启X5 -> 启动
+                            exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnOpenX5.getId());
                             exitDialogBinding.btnOpenX5.setNextFocusDownId(exitDialogBinding.btnFavorite.getId());
+                            exitDialogBinding.btnFavorite.setNextFocusUpId(exitDialogBinding.btnOpenX5.getId());
+                            // 确保开启X5向上回到启动按钮
+                            exitDialogBinding.btnOpenX5.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
                         } else {
+                            // 没有X5按钮：启动 -> 收藏；收藏上 -> 启动
                             exitDialogBinding.btnStartToggle.setNextFocusDownId(exitDialogBinding.btnFavorite.getId());
+                            exitDialogBinding.btnFavorite.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
                         }
-                        exitDialogBinding.btnFavorite.setNextFocusUpId(exitDialogBinding.btnStartToggle.getId());
                     }
                 } catch (Throwable ignore2) {}
             });
@@ -378,6 +397,10 @@ public class LiveActivity extends BaseActivity {
                 toggleFavorite(currentLive);
                 // 更新按钮状态
                 updateFavoriteButtonInDialog();
+                // 强制将焦点回到“收藏”按钮，避免被列表抢走
+                try {
+                    exitDialogBinding.btnFavorite.post(() -> exitDialogBinding.btnFavorite.requestFocus());
+                } catch (Throwable ignore) {}
             }
         });
         
@@ -692,7 +715,7 @@ public class LiveActivity extends BaseActivity {
         int count = currentProvince.getVods() == null ? 0 : currentProvince.getVods().size();
         binding.provinceName.setText(currentProvince.getName() + "(" + count + ")");
         setupChannelList(currentProvince.getVods());
-        // 显示后，将焦点与选中项指向当前频道
+        // 显示后，将焦点与选中项指向当前频道（对话框显示时不抢焦点）
         try {
             if (currentLive != null && currentLive.getTagIndex() == currentProvinceIndex) {
                 int idx = Math.max(0, currentLive.getDetailIndex());
@@ -700,8 +723,10 @@ public class LiveActivity extends BaseActivity {
                     if (idx >= binding.channelList.getCount()) { idx = binding.channelList.getCount() - 1; }
                     final int finalIdx = idx;
                     binding.channelList.post(() -> {
-                        binding.channelList.setSelection(finalIdx);
-                        binding.channelList.requestFocus();
+                        if (!isExitDialogShowing) {
+                            binding.channelList.setSelection(finalIdx);
+                            binding.channelList.requestFocus();
+                        }
                     });
                 }
             }
