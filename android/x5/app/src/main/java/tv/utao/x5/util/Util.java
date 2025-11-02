@@ -155,25 +155,111 @@ public class Util {
         }
         return false;
     }
-    // wifi下获取本地网络IP地址（局域网地址）
+    // 获取本地网络IP地址（优先IPv4）
     public static String getLocalIPAddress(Context context) {
-        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager != null) {
-            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-            String ipv4Address = intIP2StringIP(wifiInfo.getIpAddress());
-            
-            // 检查IPv4地址是否为0.0.0.0或空
-            if (ipv4Address == null || ipv4Address.equals("0.0.0.0") || ipv4Address.isEmpty()) {
-                // IPv4无效，尝试获取IPv6地址
-                String ipv6Address = getLocalIPv6Address();
-                LogUtil.i(TAG, "IPv4地址无效，使用IPv6地址: " + ipv6Address);
-                return "["+ipv6Address+"]";
+        String ip = getIPv4FromInterfaces();
+        if (ip != null && !ip.isEmpty()) return ip;
+
+        ip = getIPv4FromLinkProperties(context);
+        if (ip != null && !ip.isEmpty()) return ip;
+
+        ip = getIPv4FromWifi(context);
+        if (ip != null && !ip.isEmpty()) return ip;
+
+        String ipv6Address = getLocalIPv6Address();
+        LogUtil.i(TAG, "IPv4 not found, using IPv6: " + ipv6Address);
+        return "[" + ipv6Address + "]";
+    }
+
+    private static String getIPv4FromInterfaces() {
+        try {
+            java.util.Enumeration<java.net.NetworkInterface> interfaces = java.net.NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()) {
+                java.net.NetworkInterface nif = interfaces.nextElement();
+                if (!nif.isUp() || nif.isLoopback() || nif.isVirtual()) {
+                    continue;
+                }
+                String ifName = nif.getName();
+                java.util.Enumeration<java.net.InetAddress> addrs = nif.getInetAddresses();
+                while (addrs.hasMoreElements()) {
+                    java.net.InetAddress addr = addrs.nextElement();
+                    if (addr instanceof java.net.Inet4Address && !addr.isLoopbackAddress() && addr.isSiteLocalAddress()) {
+                        String ip = addr.getHostAddress();
+                        LogUtil.i(TAG, "IPv4 from iface(" + ifName + "): " + ip);
+                        return ip;
+                    }
+                }
             }
-            
-            LogUtil.i(TAG, "使用IPv4地址: " + ipv4Address);
-            return ipv4Address;
+        } catch (Throwable t) {
+            LogUtil.e(TAG, "iface IPv4 failed: " + t.getMessage());
         }
-        return "";
+        return null;
+    }
+
+    private static String getIPv4FromLinkProperties(Context context) {
+        try {
+            android.net.ConnectivityManager cm =
+                    (android.net.ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    android.net.Network active = cm.getActiveNetwork();
+                    if (active != null) {
+                        android.net.LinkProperties lp = cm.getLinkProperties(active);
+                        if (lp != null) {
+                            for (android.net.LinkAddress la : lp.getLinkAddresses()) {
+                                java.net.InetAddress addr = la.getAddress();
+                                if (addr instanceof java.net.Inet4Address && !addr.isLoopbackAddress()) {
+                                    String ip = addr.getHostAddress();
+                                    LogUtil.i(TAG, "IPv4 from LinkProperties(active): " + ip);
+                                    return ip;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    android.net.Network[] networks = cm.getAllNetworks();
+                    if (networks != null) {
+                        for (android.net.Network n : networks) {
+                            android.net.NetworkInfo ni = cm.getNetworkInfo(n);
+                            if (ni != null && ni.isConnected()) {
+                                android.net.LinkProperties lp = cm.getLinkProperties(n);
+                                if (lp != null) {
+                                    for (android.net.LinkAddress la : lp.getLinkAddresses()) {
+                                        java.net.InetAddress addr = la.getAddress();
+                                        if (addr instanceof java.net.Inet4Address && !addr.isLoopbackAddress()) {
+                                            String ip = addr.getHostAddress();
+                                            LogUtil.i(TAG, "IPv4 from LinkProperties(loop): " + ip);
+                                            return ip;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Throwable t) {
+            LogUtil.e(TAG, "link IPv4 failed: " + t.getMessage());
+        }
+        return null;
+    }
+
+    private static String getIPv4FromWifi(Context context) {
+        try {
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (wifiManager != null) {
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                int ipInt = wifiInfo != null ? wifiInfo.getIpAddress() : 0;
+                String ipv4Address = intIP2StringIP(ipInt);
+                if (ipv4Address != null && !ipv4Address.equals("0.0.0.0") && !ipv4Address.isEmpty()) {
+                    LogUtil.i(TAG, "IPv4 from WifiManager: " + ipv4Address);
+                    return ipv4Address;
+                }
+            }
+        } catch (Throwable t) {
+            LogUtil.e(TAG, "wifi IPv4 failed: " + t.getMessage());
+        }
+        return null;
     }
     public static String intIP2StringIP(int ip) {
         return (ip & 0xFF) + "." +
