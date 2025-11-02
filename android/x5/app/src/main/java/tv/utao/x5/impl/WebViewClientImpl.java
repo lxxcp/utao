@@ -142,6 +142,7 @@ public class WebViewClientImpl extends WebViewClient {
         String accept=  webResourceRequest.getRequestHeaders().get("Accept");
         String url=webResourceRequest.getUrl().toString();
         String orgUrl=url;
+        String method = webResourceRequest.getMethod();
         //LogUtil.i(TAG,"shouldInterceptRequest "+url);
         //LogUtil.i(TAG,"XXXXXX getMethod "+webResourceRequest.getMethod());
         //LogUtil.i(TAG,"XXXXXX heades "+webResourceRequest.getRequestHeaders());
@@ -162,6 +163,42 @@ public class WebViewClientImpl extends WebViewClient {
                     return super.shouldInterceptRequest(webView, webResourceRequest);
                 }
                 WebResourceResponse resp=new WebResourceResponse("video/x-flv",
+                        ConstantMy.UTF8, inputStream);
+                headerMap.put("access-control-allow-origin","*");
+                resp.setResponseHeaders(headerMap);
+                return resp;
+            }
+
+            //广东
+            if(orgUrl.startsWith("https://gdtv-api.gdtv.cn/api/tv/v2/tvChannel")){
+                LogUtil.i(TAG,orgUrl);
+                Map<String,String> orgHeadMap = webResourceRequest.getRequestHeaders();
+                LogUtil.i(TAG,orgHeadMap.get("x-itouchtv-ca-key"));
+                // 仅在 GET 请求时转发请求头；预检(OPTIONS)直接放过
+                if (!"GET".equalsIgnoreCase(method)) {
+                    return super.shouldInterceptRequest(webView, webResourceRequest);
+                }
+                Map<String,String> headerMap = new HashMap<>(orgHeadMap);
+                headerMap.remove("x-requested-with");
+                LogUtil.i(TAG,JsonUtil.toJson(headerMap));
+                //headerMap.put("tv-ref", "https://www.gdtv.cn/");
+                String json = HttpUtil.getJson(orgUrl,headerMap);
+                LogUtil.i(TAG,json);
+                WebResourceResponse resp=new WebResourceResponse("application/json;charset=UTF-8",
+                        ConstantMy.UTF8, new ByteArrayInputStream(json.getBytes(Charset.defaultCharset())));
+                headerMap.put("access-control-allow-origin","*");
+                resp.setResponseHeaders(headerMap);
+                return resp;
+            }
+            if(orgUrl.startsWith("https://tcdn.itouchtv.cn/live")&&orgUrl.contains(".m3u8")){
+                LogUtil.i(TAG,orgUrl);
+                Map<String,String> headerMap = new HashMap<>();
+                headerMap.put("tv-ref", "https://www.gdtv.cn/");
+                InputStream inputStream = HttpUtil.get(orgUrl,new HashMap<>());
+                if(null==inputStream){
+                    return super.shouldInterceptRequest(webView, webResourceRequest);
+                }
+                WebResourceResponse resp=new WebResourceResponse("application/vnd.apple.mpegurl",
                         ConstantMy.UTF8, inputStream);
                 headerMap.put("access-control-allow-origin","*");
                 resp.setResponseHeaders(headerMap);
