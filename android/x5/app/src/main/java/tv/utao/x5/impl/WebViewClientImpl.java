@@ -190,7 +190,7 @@ public class WebViewClientImpl extends WebViewClient {
                 resp.setResponseHeaders(headerMap);
                 return resp;
             }
-            if(orgUrl.startsWith("https://tcdn.itouchtv.cn/live")&&orgUrl.contains(".m3u8")){
+           /* if(orgUrl.startsWith("https://tcdn.itouchtv.cn/live")&&orgUrl.contains(".m3u8")){
                 LogUtil.i(TAG,orgUrl);
                 Map<String,String> headerMap = new HashMap<>();
                 headerMap.put("tv-ref", "https://www.gdtv.cn/");
@@ -203,7 +203,7 @@ public class WebViewClientImpl extends WebViewClient {
                 headerMap.put("access-control-allow-origin","*");
                 resp.setResponseHeaders(headerMap);
                 return resp;
-            }
+            }*/
             //拦截m3u8链接
             if(url.contains(".m3u8")&&currentUrl!=null&&currentUrl.contains("u-link=1")){
                String js= MessageFormat.format(
