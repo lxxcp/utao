@@ -10,7 +10,8 @@ import java.util.List;
 
 @Dao
 public interface FavoriteDao {
-    @Query("SELECT * FROM favorite ORDER BY create_time DESC")
+    //ORDER BY create_time DESC
+    @Query("SELECT * FROM favorite ")
     List<Favorite> getAllFavorites();
 
     @Query("SELECT * FROM favorite WHERE vod_key = :vodKey LIMIT 1")

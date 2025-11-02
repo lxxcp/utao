@@ -108,12 +108,12 @@ public class UpdateService {
     public static List<Live> getByLivesWithFavorites(Context context){
         // 获取收藏数据
         List<Favorite> favorites = FavoriteService.getInstance(context).getAllFavorites();
-        List<Live> lives = new ArrayList<>(newLives);
+        List<Live> lives = new ArrayList<>();
         if(!favorites.isEmpty()) {
             // 创建收藏栏目
-            int tagIndex=newLives.size();
+            int tagIndex=0;
             Live favoriteLive = new Live();
-            favoriteLive.setName("我的收藏");
+            favoriteLive.setName("收藏");
             favoriteLive.setTag("favorite");
             favoriteLive.setIndex(tagIndex);
             // 将收藏的频道添加到收藏栏目
@@ -136,6 +136,7 @@ public class UpdateService {
             }
             favoriteLive.setVods(favoriteVods);
             lives.add(favoriteLive);
+            lives.addAll(newLives);
             // 让“我的收藏”参与导航映射（index 已经是收藏明细数量）
             tagMaxMap.put(tagIndex, index - 1);
             return lives;
