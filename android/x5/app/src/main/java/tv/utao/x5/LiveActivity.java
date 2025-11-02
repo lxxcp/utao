@@ -224,6 +224,17 @@ public class LiveActivity extends BaseActivity {
             return true;
         }
 
+        // 数字键缓冲：支持多位数字组合（如 12、108），1秒未继续输入则跳转
+        if (isDigitKey(keyCode)) {
+            digitInputHandler.removeCallbacks(commitDigitRunnable);
+            digitBuffer.append(digitFromKeyCode(keyCode));
+            try {
+                ToastUtils.show(this, "输入: " + digitBuffer.toString(), Toast.LENGTH_SHORT);
+            } catch (Throwable ignore) {}
+            digitInputHandler.postDelayed(commitDigitRunnable, DIGIT_TIMEOUT_MS);
+            return true;
+        }
+
         if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
             return goNext("right");
         }
@@ -887,4 +898,63 @@ public class LiveActivity extends BaseActivity {
     }
 
 
+    // 多位数字输入缓冲（用于收藏栏数字跳转）
+    // 多位数字输入缓冲（用于收藏栏数字跳转）
+    private final StringBuilder digitBuffer = new StringBuilder();
+    private final Handler digitInputHandler = new Handler(Looper.getMainLooper());
+    private static final int DIGIT_TIMEOUT_MS = 1000;
+    private final Runnable commitDigitRunnable = new Runnable() {
+        @Override
+        public void run() {
+            String s = digitBuffer.toString();
+            digitBuffer.setLength(0);
+            if (s.isEmpty()) return;
+            try {
+                int num = Integer.parseInt(s);
+                jumpToFavoriteByNumber(num);
+            } catch (NumberFormatException ignore) {}
+        }
+    };
+    private boolean isDigitKey(int keyCode) {
+        return keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9;
+    }
+    private char digitFromKeyCode(int keyCode) {
+        return (char) ('0' + (keyCode - KeyEvent.KEYCODE_0));
+    }
+
+    // 跳转到“收藏”栏目中对应序号的频道并播放（支持 >= 10）
+    private void jumpToFavoriteByNumber(int num) {
+        Live favoriteLive = null;
+        for (Live l : provinces) {
+            if ("favorite".equals(l.getTag())) {
+                favoriteLive = l;
+                break;
+            }
+        }
+        if (favoriteLive == null || favoriteLive.getVods() == null) {
+            return;
+        }
+        int idx = num - 1; // 1-based -> 0-based
+        if (idx < 0 || idx >= favoriteLive.getVods().size()) {
+            return;
+        }
+        Vod channel = favoriteLive.getVods().get(idx);
+        currentLive = channel;
+
+        // 加载并播放
+        runOnUiThread(() -> {
+            try {
+                mWebView.loadUrl(channel.getUrl());
+            } catch (Exception e) {
+                LogUtil.e(TAG, "Error loading URL: " + e.getMessage());
+            }
+        });
+
+        // 记录历史、提示、收起菜单
+        try {
+            HistoryDaoX.updateChannel(thisContext, channel.getUrl());
+        } catch (Throwable ignore) {}
+        showToast(channel.getName(), this);
+        hideMenu();
+    }
 }

@@ -121,7 +121,13 @@ public class UpdateService {
             int index = 0;
             for(Favorite favorite : favorites) {
                 Vod vod = new Vod();
-                vod.setName(favorite.getVodName());
+                // 显示为“1.频道名”格式，去掉前缀心形符号
+                String baseName = favorite.getVodName();
+               /* if (baseName != null) {
+                    baseName = baseName.replaceFirst("^❤\\s*", "");
+                }*/
+                String displayName = String.format("%d.%s", index + 1, baseName);
+                vod.setName(displayName);
                 // 为收藏的URL添加usave=1参数
                 String url = favorite.getVodUrl();
                 vod.setUrl(url);
