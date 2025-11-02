@@ -36,6 +36,10 @@ data:
         url: https://tv.cctv.com/live/cctv16/
       - name: CCTV-17 农业农村
         url: https://tv.cctv.com/live/cctv17/
+      - name: 1905电影
+        url: https://m.1905.com/m/xl/live/
+      - name: 1905国际电影
+        url: https://www.1905.com/1905tv/live/
   #央视2
   - tag: cctv2
     name: 央视源2
@@ -270,10 +274,6 @@ data:
         url: https://www.qyrb.cn/tv/rM834x3d5a.html
       - name: 韶关新闻综合
         url: https://www.sgmsw.cn/v/tv?spm=0.0.0.0.HGiuAr&id=SB05RIYZOU8JR418AUQOF62CAJQ08D0E
-  #香港
-  - tag: xianggang
-    name: 香港
-    vods:
       - name: 凤凰卫视资讯台
         url: https://www.fengshows.com/live?tag=0
       - name: 凤凰卫视中文台
@@ -282,6 +282,18 @@ data:
         url: https://www.fengshows.com/live?tag=2
       - name: 香港卫视
         url: http://www.hkstv.tv/index/live/channel/.html
+#  #香港
+#  - tag: xianggang
+#    name: 香港
+#    vods:
+#      - name: 凤凰卫视资讯台
+#        url: https://www.fengshows.com/live?tag=0
+#      - name: 凤凰卫视中文台
+#        url: https://www.fengshows.com/live?tag=1
+#      - name: 凤凰卫视香港台
+#        url: https://www.fengshows.com/live?tag=2
+#      - name: 香港卫视
+#        url: http://www.hkstv.tv/index/live/channel/.html
   #山东
   - tag: sdtv
     name: 山东
@@ -1324,19 +1336,19 @@ data:
     name: 黑龙江
     vods:
       - name: 黑龙江卫视
-        url: https://www.hljtv.com/live/folder418/
+        url: https://www.hljtv.com/tv-web/live.html?url=https://idclive.hljtv.com:4430/live/hljws_own.m3u8
       - name: 黑龙江文体
-        url: https://www.hljtv.com/live/folder423/
+        url: https://www.hljtv.com/tv-web/live.html?url=https://idclive.hljtv.com:4430/live/hljwy_hd.m3u8
       - name: 黑龙江影视
-        url: https://www.hljtv.com/live/folder425/
+        url: https://www.hljtv.com/tv-web/live.html?url=https://idclive.hljtv.com:4430/live/hljys_hd.m3u8
       - name: 黑龙江新闻法治
-        url: https://www.hljtv.com/live/folder424/
+        url: https://www.hljtv.com/tv-web/live.html?url=https://idclive.hljtv.com:4430/live/hljxw_hd.m3u8
       - name: 黑龙江都市
-        url: https://www.hljtv.com/live/folder419/
+        url: https://www.hljtv.com/tv-web/live.html?url=https://idclive.hljtv.com:4430/live/dushi_hd.m3u8
       - name: 黑龙江农业·科技
-        url: https://www.hljtv.com/live/folder420/
+        url: https://www.hljtv.com/tv-web/live.html?url=https://idclive.hljtv.com:4430/live/hljgg_hd.m3u8
       - name: 黑龙江少儿
-        url: https://www.hljtv.com/live/folder422/
+        url: https://www.hljtv.com/tv-web/live.html?url=https://idclive.hljtv.com:4430/live/hljse_hd.m3u8
       - name: 哈尔滨新闻综合
         url: https://www.hrbtv.net/folder79/folder81/
       - name: 哈尔滨生活
@@ -1816,46 +1828,46 @@ data:
       - name: 咸阳公共
         url: https://www.sxxynews.com.cn/tvradio/xyggpd.html
 
-  - tag: hytv
-    name: 虎牙直播
-    vods:
-      - name: 放松音乐
-        url: https://www.huya.com/21241811
-      - name: 百家讲坛
-        url: https://www.huya.com/11602032
-      - name: 陈翔六点半
-        url: https://www.huya.com/11274154
-      - name: 猫和老鼠
-        url: https://www.huya.com/11352879
-      - name: 机器猫
-        url: https://www.huya.com/11601963
-      - name: 七龙珠
-        url: https://www.huya.com/11601966
-      - name: 海绵宝宝
-        url: https://www.huya.com/11352919
-      - name: 茶啊二中
-        url: https://www.huya.com/11213191
-      - name: 星爷
-        url: https://www.huya.com/11336587
-      - name: 刘德华
-        url: https://www.huya.com/11342424
-      - name: 喜剧
-        url: https://www.huya.com/11352877
-      - name: 漫威
-        url: https://www.huya.com/11602034
-      - name: 电影001
-        url: https://www.huya.com/11342428
-      - name: 电影002
-        url: https://www.huya.com/21059577
-      - name: 春晚小品1
-        url: https://www.huya.com/11602068
-      - name: 春晚小品2
-        url: https://www.huya.com/29982631
-      - name: 电影1
-        url: https://www.huya.com/11352887
-      - name: 电影2
-        url: https://www.huya.com/11352884
-      - name: 贺岁电影1
-        url: https://www.huya.com/11601986
-      - name: 贺岁电影2
-        url: https://www.huya.com/11601971
+#  - tag: hytv
+#    name: 虎牙直播
+#    vods:
+#      - name: 放松音乐
+#        url: https://www.huya.com/21241811
+#      - name: 百家讲坛
+#        url: https://www.huya.com/11602032
+#      - name: 陈翔六点半
+#        url: https://www.huya.com/11274154
+#      - name: 猫和老鼠
+#        url: https://www.huya.com/11352879
+#      - name: 机器猫
+#        url: https://www.huya.com/11601963
+#      - name: 七龙珠
+#        url: https://www.huya.com/11601966
+#      - name: 海绵宝宝
+#        url: https://www.huya.com/11352919
+#      - name: 茶啊二中
+#        url: https://www.huya.com/11213191
+#      - name: 星爷
+#        url: https://www.huya.com/11336587
+#      - name: 刘德华
+#        url: https://www.huya.com/11342424
+#      - name: 喜剧
+#        url: https://www.huya.com/11352877
+#      - name: 漫威
+#        url: https://www.huya.com/11602034
+#      - name: 电影001
+#        url: https://www.huya.com/11342428
+#      - name: 电影002
+#        url: https://www.huya.com/21059577
+#      - name: 春晚小品1
+#        url: https://www.huya.com/11602068
+#      - name: 春晚小品2
+#        url: https://www.huya.com/29982631
+#      - name: 电影1
+#        url: https://www.huya.com/11352887
+#      - name: 电影2
+#        url: https://www.huya.com/11352884
+#      - name: 贺岁电影1
+#        url: https://www.huya.com/11601986
+#      - name: 贺岁电影2
+#        url: https://www.huya.com/11601971
