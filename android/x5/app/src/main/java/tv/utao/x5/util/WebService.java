@@ -21,8 +21,7 @@ public class WebService extends NanoHTTPD {
         }catch (Exception e){
             LogUtil.i(TAG,e.getMessage());
         }
-
-        System.out.println("\nRunning! Point your browsers to http://localhost:" + port + "/ \n");
+        LogUtil.i(TAG,"Running! Point your browsers to http://localhost:"+port);
     }
 
  
@@ -54,11 +53,14 @@ public class WebService extends NanoHTTPD {
             Util.mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                   /* if(null!=BaseActivity.getmWebView()){
+                    LogUtil.i(TAG,"loadUrl::"+url);
+                  /*  if(null!=BaseActivity.getmWebView()){
                         BaseActivity.getmWebView().loadUrl(url);
                     }*/
                 }
             });
+            // 通过分发器在主线程触发前台 WebView 加载
+            WebViewDispatcher.loadUrl(url);
 
             return newFixedLengthResponse(Response.Status.OK, mimetype, "ok");
         }

@@ -16,6 +16,7 @@ import tv.utao.x5.impl.WebViewClientImpl;
 import tv.utao.x5.util.LogUtil;
 import tv.utao.x5.util.ValueUtil;
 import tv.utao.x5.utils.ToastUtils;
+import tv.utao.x5.util.WebViewDispatcher;
 
 public class MainActivity extends BaseWebViewActivity {
     private long mClickBackTime = 0;
@@ -54,6 +55,25 @@ public class MainActivity extends BaseWebViewActivity {
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // 在这里处理竖屏模式下的布局调整
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebViewDispatcher.registerLoadUrlCallback(new WebViewDispatcher.LoadUrlCallback() {
+            @Override
+            public void accept(String u) {
+                if (mWebView != null) {
+                    mWebView.loadUrl(u);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        WebViewDispatcher.unregister();
+        super.onPause();
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {

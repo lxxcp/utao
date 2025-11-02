@@ -30,7 +30,7 @@ android {
         //noinspection ExpiredTargetSdkVersiotv
         targetSdk 28
         versionCode 47
-        versionName "2025年10月14日"
+        versionName "2025-10-14"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi","armeabi-v7a","arm64-v8a","x86"//"armeabi-v7a","x86" arm64-v8a ""armeabi-v7a"// arm64-v8a、armeabi-v7a、x86_64、x86 中的一个或多个
@@ -72,7 +72,7 @@ android {
         variant ->
             variant.outputs.all {
                 // 此处指定生成的apk文件名
-                outputFileName = "utao.apk"
+                outputFileName = "utao-${variant.versionName}.apk"
             }
     }
     lint {
