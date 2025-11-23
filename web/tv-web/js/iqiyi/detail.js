@@ -87,14 +87,16 @@ const  _ctrlx={
         },
     }
     $$(function(){
-        let loginText = $$("#btn_user").text(); 
-        //QiyiPlayerProphetData.v.isVIP;
-        if(loginText=="登录"){
-            _login.init();
-        }else{
-            _app.init();
-        }
-        _ctrlx.fullscreen();
+        _tvFunc.check(function(){return $$("#btn_user").length>0;},function (){
+            let loginText = $$("#btn_user").text();
+            //QiyiPlayerProphetData.v.isVIP;
+            if(loginText=="登录"){
+                _login.init();
+            }else{
+                _app.init();
+            }
+            _ctrlx.fullscreen();
+        });
     });
 })();
 const _data={
