@@ -1,8 +1,21 @@
 const fs = require("fs");
+const { execSync } = require("child_process");
 const yaml = require("js-yaml");
 const archiver = require("archiver");
+const path = require("path");
 const utf8="utf8";
 let currentTime = new Date().getTime();
+
+// 先执行 node.js 脚本
+console.log("开始执行 node.js 脚本...");
+try {
+    const nodeScriptPath = path.join(__dirname, "node.js");
+    execSync(`node "${nodeScriptPath}"`, { stdio: 'inherit', cwd: __dirname });
+    console.log("node.js 脚本执行完成");
+} catch (error) {
+    console.error("执行 node.js 脚本失败:", error.message);
+    process.exit(1);
+}
 let ya={
     work(src,to){
         fs.readFileSync(src, utf8,function (err,data){
@@ -78,17 +91,22 @@ let ya={
             //console.log('File exists');
         } catch (err) {
             // console.log('File does not exist');
-            fs.mkdirSync(path);
+            // 递归创建目录，如果父目录不存在也会自动创建
+            fs.mkdirSync(path, { recursive: true });
         }
     }
 }
-let basePath="D:/work/utao/utao/web/tv-web";
+let basePath="/Users/vonchange/work/my/utao/web/tv-web";
 ya.yamlToJson(basePath);
-let toPathBase="D:/work/web/gen";
+let toPathBase="/Users/vonchange/work/web/gen";
+// 确保目标基础目录存在
+ya.mkdir(toPathBase);
 let toPath=toPathBase+"/tv-web";
 ya.rootPath(basePath,toPath);
-toPathBase="D:/work/utao/utao/android/x5/app/src/main/assets";
-//D:/work/utao/utao/android/x5/app/src/main/assets D:/work/web/gen
+toPathBase="/Users/vonchange/work/my/utao/android/x5/app/src/main/assets";
+// /Users/vonchange/work/my/utao/android/x5/app/src/main/assets /Users/vonchange/work/web/gen
+// 确保目标基础目录存在
+ya.mkdir(toPathBase);
 toPath=toPathBase+"/tv-web";
 ya.rootPath(basePath,toPath);
 
@@ -104,7 +122,7 @@ setTimeout(function (){
 // 第五步，完成压缩
         archive.finalize();
     }
-    zip("D:/work/web/gen","tv-web");
+    zip("/Users/vonchange/work/web/gen","tv-web");
     /*  setTimeout(function (){
               fs.copyFileSync(toPathBase+"/"+tvWeb+".zip",toAppRes+"/"+tvWeb+".zip");
               console.log("copy file");

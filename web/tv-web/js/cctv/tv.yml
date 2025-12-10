@@ -274,6 +274,11 @@ data:
         url: https://www.qyrb.cn/tv/rM834x3d5a.html
       - name: 韶关新闻综合
         url: https://www.sgmsw.cn/v/tv?spm=0.0.0.0.HGiuAr&id=SB05RIYZOU8JR418AUQOF62CAJQ08D0E
+      - name: 揭阳公共
+        url: https://ap.jyrtv.tv/application/tvradio/h5/detail.html?type=tv&id=11
+      - name: 揭阳生活
+        url: https://ap.jyrtv.tv/application/tvradio/h5/detail.html?type=tv&id=12
+
       - name: 凤凰卫视资讯台
         url: https://www.fengshows.com/live?tag=0
       - name: 凤凰卫视中文台
@@ -665,6 +670,12 @@ data:
         url: https://iapp.junanrongmei.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.junanrongmei.cn/share/dHZsLTEwNS00.html
       - name: 莒南影视
         url: https://iapp.junanrongmei.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.junanrongmei.cn/share/dHZsLTEwNS01.html
+
+      - name: 兰陵综合频道
+        url: https://app.litenews.cn/tv-web/js/tv/iapp2/live.html?orgId=113&id=131
+      - name: 兰陵公共频道
+        url: https://app.litenews.cn/tv-web/js/tv/iapp2/live.html?orgId=113&id=133
+
       - name: 兰山综合
         url: https://iapp.lylsrm.cn/tv-web/js/tv/iapp/live.html?url=https://iapp.lylsrm.cn/share/dHZsLTIwMS0x.html
       - name: 临沭综合
