@@ -1,6 +1,10 @@
 *.apk
 *.iml
 .gradle
+# 密钥库文件（敏感信息）
+/keystore/
+*.jks
+*.keystore
 /app/src/main/assets
 /app/release
 /app/debug

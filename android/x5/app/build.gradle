@@ -7,6 +7,13 @@ ext{
     okhttp_version = "3.12.13"
     room_version = "2.6.1"
 }
+// 从 local.properties 读取签名配置
+def keystorePropertiesFile = rootProject.file("local.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
    /* flavorDimensions= ["env"]
     productFlavors {
@@ -19,6 +26,16 @@ android {
     }*/
     namespace 'tv.utao.x5'
     compileSdk 34
+
+    // 签名配置（从 local.properties 读取）
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['RELEASE_STORE_FILE'] ?: "../keystore/x5.jks")
+            storePassword keystoreProperties['RELEASE_STORE_PASSWORD'] ?: ""
+            keyAlias keystoreProperties['RELEASE_KEY_ALIAS'] ?: "x5"
+            keyPassword keystoreProperties['RELEASE_KEY_PASSWORD'] ?: ""
+        }
+    }
     buildFeatures {
         buildConfig = true
         dataBinding = true
@@ -59,6 +76,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             buildConfigField('String', 'BUILD_ENV_TYPE', '"pro"')
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
