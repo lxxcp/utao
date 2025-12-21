@@ -150,7 +150,8 @@ public class Util {
     public  static  boolean isNotNeedX5(){
         //Build.VERSION_CODES.R 安卓11
         //Build.VERSION_CODES.P 安卓9
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
+        //Build.VERSION_CODES.N 安卓7
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
             return true;
         }
         return false;
