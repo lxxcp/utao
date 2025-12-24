@@ -18,9 +18,9 @@ function transformUrl(url) {
   }
 
   // 新增规则：排除 https://www.fengshows.com 前缀
-  if (/^https:\/\/www\.fengshows\.com/i.test(url)) {
+ /* if (/^https:\/\/www\.fengshows\.com/i.test(url)) {
     return null; // 表示该项需要被移除
-  }
+  }*/
 
   // 新规则：对于包含 live.html?url= 的链接，直接提取 url= 后面的值
  /* if (url.includes('live.html?url=')&&url.includes(".m3u8")) {

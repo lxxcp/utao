@@ -191,7 +191,7 @@ data:
       - name: 内蒙少儿
         url: https://www.nmtv.cn/liveTv?tag=少儿频道
       - name: 深圳少儿
-        url: https://www.sztv.com.cn/pindao/index.html?id=7881
+        url: https://www.sztv.com.cn/dianshi.shtml?id=7881
       - name: 金鹰卡通
         url: https://www.mgtv.com/live/?tag=金鹰卡通
   # 教育
@@ -1032,19 +1032,19 @@ data:
     name: 深圳
     vods:
       - name: 深圳卫视
-        url: https://www.sztv.com.cn/pindao/index.html?id=7867
+        url: https://www.sztv.com.cn/dianshi.shtml?id=7867&u-link=1
       - name: 深圳卫视4K
-        url: https://www.sztv.com.cn/pindao/index.html?id=24725
+        url: https://www.sztv.com.cn/dianshi.shtml?id=24725&u-link=1
       - name: 深圳都市
-        url: https://www.sztv.com.cn/pindao/index.html?id=7868
+        url: https://www.sztv.com.cn/dianshi.shtml?id=7868&u-link=1
       - name: 深圳电视剧
-        url: https://www.sztv.com.cn/pindao/index.html?id=7880
+        url: https://www.sztv.com.cn/dianshi.shtml?id=7880&u-link=1
       - name: 深圳财经
-        url: https://www.sztv.com.cn/pindao/index.html?id=7871
+        url: https://www.sztv.com.cn/dianshi.shtml?id=7871&u-link=1
       - name: 深圳移动电视
-        url: https://www.sztv.com.cn/pindao/index.html?id=7869
+        url: https://www.sztv.com.cn/dianshi.shtml?id=7869&u-link=1
       - name: 深圳国际
-        url: https://www.sztv.com.cn/pindao/index.html?id=7944
+        url: https://www.sztv.com.cn/dianshi.shtml?id=7944&u-link=1
   #四川
   - tag: sctv
     name: 四川
@@ -1484,26 +1484,27 @@ data:
   - tag: jxntv
     name: 江西
     vods:
+      - name: 江西卫视
+        url: https://www.jxntv.cn/live/?tag=1#/jxtv1
+      - name: 江西都市
+        url: https://www.jxntv.cn/live/?tag=1#/jxtv2
+      - name: 江西经济生活
+        url: https://www.jxntv.cn/live/?tag=2#/jxtv3
+      - name: 江西影视
+        url: https://www.jxntv.cn/live/?tag=3#/jxtv4
+      - name: 江西农业
+        url: https://www.jxntv.cn/live/?tag=4#/jxtv5
+      - name: 江西新闻
+        url: https://www.jxntv.cn/live/?tag=6#/jxtv7
+      - name: 江西移动
+        url: https://www.jxntv.cn/live/?tag=7#/jxtv8
+      - name: 江西陶瓷
+        url: https://www.jxntv.cn/live/?tag=8#/jxtv9
       - name: 宜春新闻综合
         url: https://h5-yc.newsyc.com/front-cloudlive-manage-h5/index.html?id=610897459610271744&company_id=397#/
       - name: 宜春法治·民生
         url: https://h5-yc.newsyc.com/front-cloudlive-manage-h5/index.html?id=636127231831396352&company_id=397#/
-#        - name: 江西卫视
-#          url: https://www.jxntv.cn/tv-web/js/tv/jxntv/live.html?url=https://yun-live.jxtvcn.com.cn/live-jxtv/tv_jxtv1.m3u8
-#        - name: 江西都市
-#          url: https://www.jxntv.cn/live/?tag=1#/jxtv2
-#        - name: 江西经济生活
-#          url: https://www.jxntv.cn/live/?tag=2#/jxtv3
-#        - name: 江西影视
-#          url: https://www.jxntv.cn/live/?tag=3#/jxtv4
-#        - name: 江西农业
-#          url: https://www.jxntv.cn/live/?tag=4#/jxtv5
-#        - name: 江西新闻
-#          url: https://www.jxntv.cn/live/?tag=6#/jxtv7
-#        - name: 江西移动
-#          url: https://www.jxntv.cn/live/?tag=7#/jxtv8
-#        - name: 江西陶瓷
-#          url: https://www.jxntv.cn/live/?tag=8#/jxtv9
+
   #新疆
   - tag: xjtvs
     name: 新疆
