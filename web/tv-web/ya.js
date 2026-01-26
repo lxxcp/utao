@@ -96,7 +96,7 @@ let ya={
         }
     }
 }
-let basePath="/Users/vonchange/work/my/utao/web/tv-web";
+let basePath=__dirname;
 ya.yamlToJson(basePath);
 let toPathBase="/Users/vonchange/work/web/gen";
 // 确保目标基础目录存在
