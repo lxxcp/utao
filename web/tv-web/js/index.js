@@ -51,7 +51,7 @@ const _html={
         console.log("initAppinitApp")
         if (typeof PetiteVue === 'undefined') {
            // _api.message("activity","live");
-            _api.toast("内置浏览器内核过低或开启x5内核失败 可官网utao.tv下载火狐版");
+            _api.toast("内置浏览器内核过低请返回键升级webview或者开启x5内核浏览器 也可官网utao.tv下载火狐版");
             return;
         }
         PetiteVue.createApp({
@@ -222,50 +222,19 @@ let _data={
         _data.vue.channels.push({id:0,tag:"see",name:"须看",vods:[]});
         _data.vue.channels.push({id:1,tag:"index",name:"&#xe604; 首页",vods:[]});
         _data.vue.channels.push({id:2,tag:"history",name:"&#xe604; 历史",vods:[]});
-        _data.vue.channels.push({id:3,tag:"search",name:"&#xe610; 搜索",vods:[]});
-        _data.vue.channels.push({id:4,tag:"set",name:"设置",vods:[]});
+        _data.vue.channels.push({id:3,tag:"set",name:"设置",vods:[]});
     },
     apps(){
         let apps=[];
         let isGecko=_tvFunc.isGecko();
         console.log("isGecko",isGecko);
-        let bili="bili.html";
-        if(!isGecko){
-            bili="https://www.bilibili.com/tv-web/bili.html";
-        }
-        //"https://tv.cctv.com/live/cctv13/" "tv.html"
         apps.push({id:0,url:"tv.html",name:"电视频道",pic:"img/utao.jpg"});
         apps.push({id:0,url:"https://www.yangshipin.cn/tv/home?pid=600002475",name:"CCTV直播",pic:"img/cctv.jpg"});
         apps.push({id:0,url:"cctv.html",name:"央视片库",pic:"img/cctv-video.jpg"});
+        apps.push({id:0,url:"https://www.vonchange.com",name:"土拨鼠大屏助手",pic:"img/tubo.png"});
         apps.push({id:0,url:"bestv.html",name:"百视通",pic:"img/bestv.png"});
-        apps.push({id:0,url:bili,name:"哔哩哔哩",pic:"img/bilibili.png"});
-     /*   if(!isGecko){
-            apps.push({id:0,url:"xigua.html",name:"西瓜视频",pic:"img/xigua.png"});
-        }else{
-            apps.push({id:0,url:bili,name:"哔哩哔哩",pic:"img/bilibili.png"});
-        }*/
-        let dou="douban.html";
-        if(!isGecko){
-            dou="https://movie.douban.com/tv-web/douban.html";
-        }
-        apps.push({id:0,url:dou,name:"豆瓣全网影视",pic:"img/douban.jpg"});
         apps.push({id:0,url:"mgtv.html",name:"芒果TV",pic:"img/manguo.jpeg"});
         apps.push({id:0,url:"youku.html",name:"优酷",pic:"img/youku.jpg"});
-        let iqiyi="iqiyi.html";
-        if(!isGecko){
-            iqiyi="https://www.iqiyi.com/tv-web/iqiyi.html";
-        }
-        apps.push({id:0,url:iqiyi,name:"爱奇艺",pic:"img/iqiyi.jpg"});
-        apps.push({id:0,url:"qq.html",name:"腾讯视频",pic:"img/vqq.png"});
-       /* if(!isGecko){
-            apps.push({id:0,url:bili,name:"哔哩哔哩",pic:"img/bilibili.png"});
-        }*/
-        //apps.push({id:0,url:"https://www.douyin.com/?recommend=1",name:"抖音推荐",pic:"img/dy2.jpg"});
-        apps.push({id:0,url:"ty.html",name:"体育",pic:"img/utao.jpg"});
-        apps.push({id:0,url:"letv.html",name:"乐视",pic:"img/letv.jpg"});
-        //https://www.douyin.com/?recommend=1
-        //apps.push({id:0,url:"https://www.douyin.com/?recommend=1",name:"抖音推荐",pic:"img/dy2.jpg"});
-        //apps.push({id:0,url:"douyin.html",name:"抖音推荐",pic:"img/douyin.jpeg"});
         apps.forEach((item,index)=>{
             item.id=index;
             item.pic=_tvFunc.image(item.pic);

@@ -31,30 +31,30 @@
                      :class="{'tv-active':tab=='history'}"
                      id="tv-history" move-down="#tv-history-content:.tv-btn"> &#xe63c; 历史</div>
                 <div tabindex="0"  @focus="switchChannel(channels[3])"  @click="switchChannel(channels[3])" class="tv-btn"
-                     :class="{'tv-active':tab=='search'}"
-                     id="tv-search">&#xe610; 搜索</div>
-                <div tabindex="0"  @focus="switchChannel(channels[4])"  @click="switchChannel(channels[4])" class="tv-btn"
                      :class="{'tv-active':tab=='set'}"
                      id="tv-set" move-down="#tv-set-content:.tv-btn">&#xe68f; 设置</div>
             </div>
             <div id="tv-content">
                 <div id="tv-see-content" class="tv-tab" :style="{display:(tab == 'see' ? 'grid' : 'none')}">
                     <div class="tv-text">
-                        开发维护不易 由于某些原因无法收费 如果有帮助到您  还望赞赏支持下
+                         还望多多支持 新软 土拨鼠大屏助手(电视) 支持苹果安卓 飞鼠遥控电视
                     </div>
                     <div class="tv-text">
-                        <span style="color: red">无广告</span> 广告均来自各个视频平台
+                        官网 地址 https://www.vonchange.com
+                   </div>
+                    <div class="tv-text">
+                        <span style="color: red">本软件无广告</span> 广告均来自各个视频平台
                     </div>
                     <div class="tv-content" style="grid-template-columns: repeat(5, 20%);">
                         <div class="tv-item">
                         </div>
                         <div class="tv-item">
+                            <img src="img/tubo.png?tvImg=1"/><span>扫码下载土拨鼠大屏助手</span>
+                        </div>
+                        <div class="tv-item">
+                        </div>
+                        <div class="tv-item">
                             <img src="img/mydy.jpg?tvImg=1"/><span>抖音私信或任一视频下反馈问题</span>
-                        </div>
-                        <div class="tv-item">
-                        </div>
-                        <div class="tv-item">
-                            <img src="img/myzsm.jpg?tvImg=1"/><span>扫码支持(微信赞赏码)</span>
                         </div>
                     </div>
                     <div class="tv-text">
@@ -107,9 +107,9 @@
                     <div class="tv-btn" style="white-space:normal;margin: 1vh 0;max-width:100%;" move-updown="1" move-up="#tv-set">
                         设备ID {{info.deviceId}} {{info.resVersion}}</div>
                     <div class="tv-btn" style="white-space:normal;margin: 1vh 0;max-width:100%;" move-updown="1" move-up="#tv-set">
-                         官网 https://www.utao.tv</div>
+                         官网 https://www.vonchange.com</div>
                     <div class="tv-btn" style="white-space:normal;margin: 1vh 0;max-width:100%;" move-updown="1" move-up="#tv-set">
-                        抖音ID: utaotv       微博: 油桃TV</div>
+                        抖音ID: vonchange       小红书号: vonchange</div>
                 </div>
             </div>
         </div>
